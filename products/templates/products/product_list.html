@@ -1,0 +1,34 @@
+{% extends 'pages\_base.html' %}
+{% load static %}
+
+{% block title %}Products List{% endblock title %}
+{% block head_block %}
+    <link rel='stylesheet' href="{% static 'products/css/product_list.css' %}"
+{% endblock head_block %}
+{% block content %}
+    <h1 class='main-title'>Products</h1>
+    <main>
+        {% for product in product_list %}
+            <div class='item'>
+                <span class='product-property'> Name:</span> {{product.name}}
+                <br />
+                <span class='product-property'>Price:</span> {{product.price}}
+                <br />
+                <span class='product-property'>Category:</span> {{product.category}}
+                <br />
+                <img class='product-img' src="{% static 'products/images/new.jpg' %}" alt='new product' /> 
+            </div>
+        
+        {% empty %}
+            <li class='empty-list'>No products yet.</li>
+        {% endfor %}
+    </main>
+    <aside class='search-bar'>
+        <form action="{% url 'search_results' %}" method='GET'>
+            <label for='search-products'> Search in products </label>
+            <input type='search' name='q' aria-label="Search through site products" 
+                placeholder='Search' />
+            <button> Search </button>
+        </form>
+    </aside>
+{% endblock content %}

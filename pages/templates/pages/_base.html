@@ -1,0 +1,26 @@
+{% load static %}
+
+
+<html>
+    <head>
+        <title>{% block title %}E-market{% endblock title %}</title>
+        <link rel="stylesheet" href="{% static 'pages/css/base.css' %}" />
+        {% block head_block %}{% endblock head_block %}
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <header>
+            <a class='home' href="{% url 'home' %}">Home</a>
+            {% if user.is_authenticated %}
+                <span>Hello {{user.username}}</span>|
+                <a href="{% url 'logout' %}">logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">login</a>|
+                <a href="{% url 'signup' %}">signup</a>
+            {% endif %}
+        </header>
+
+        {% block content %}
+        {% endblock content %}
+    </body>
+</html>
