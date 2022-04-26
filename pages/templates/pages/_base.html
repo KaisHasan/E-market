@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <html>
     <head>
         <title>{% block title %}E-market{% endblock title %}</title>
@@ -13,10 +12,10 @@
             <a class='home' href="{% url 'home' %}">Home</a>
             {% if user.is_authenticated %}
                 <span>Hello {{user.username}}</span>|
-                <a href="{% url 'logout' %}">logout</a>
+                <a href="{% url 'account_logout' %}">logout</a>
             {% else %}
-                <a href="{% url 'login' %}">login</a>|
-                <a href="{% url 'signup' %}">signup</a>
+                <a href="{% url 'account_login' %}">login</a>|
+                <a href="{% url 'account_signup' %}">signup</a>
             {% endif %}
         </header>
 

@@ -2,7 +2,6 @@ from urllib import response
 from django.urls import reverse, resolve
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from .views import SignUpView
 from .forms import CustomUserCreationForm
 # Create your tests here.
 
@@ -34,33 +33,27 @@ class CustomUserTest(TestCase):
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
 
-class SignUpTest(TestCase):
-    def setUp(self):
-        self.sign_up_info = {
-            'email':'kais.hasan314@gmail.com',
-            'username':'kais',
-            'password':'12345'
-        }
-        self.url = reverse('signup')
-        self.response = self.client.post(self.url, self.sign_up_info)
 
-    def test_signup_template(self):
-        self.assertTemplateUsed(self.response, 'accounts/signup.html')
+class SignupTest(TestCase):
+    username = 'lujain'
+    email = 'l@gmail.com'
+
+    def setUp(self):
+        url = reverse('account_signup')
+        self.response = self.client.get(url)
     
-    def test_signup_view(self):
-        view = resolve(self.url)
-        self.assertEqual(
-            view.func.__name__,
-            SignUpView.as_view().__name__
+    def test_signup_template(self):
+        self.assertEqual(self.response.status_code, 200)
+        self.assertTemplateUsed(
+            self.response,
+            'account/signup.html'
         )
     
-    def test_signup_then_login(self):
-        response = self.client.get(reverse('login'))
-        self.assertEqual(response.status_code, 200)
-
     def test_signup_form(self):
-        form = self.response.context.get('form')
-        self.assertIsInstance(form, CustomUserCreationForm)
-        self.assertContains(self.response, 'csrfmiddlewaretoken')
-
+        new_user = get_user_model().objects.create_user(
+            self.username, self.email
+        )
+        self.assertEqual(get_user_model().objects.all().count(), 1)
+        self.assertEqual(get_user_model().objects.all()[0].username, self.username)
+        self.assertEqual(get_user_model().objects.all()[0].email, self.email)
 

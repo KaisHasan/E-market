@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from telnetlib import AUTHENTICATION
 import environ
 
 env = environ.Env(
@@ -43,14 +44,34 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
     # local
     'pages.apps.PagesConfig',
     'accounts.apps.AccountsConfig',
-    'products.apps.ProductsConfig'
+    'products.apps.ProductsConfig',
+
+    # 3rd party
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'crispy_forms'
 ]
 
+
+# django-allauth config
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_REDIRECT = 'home'
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+
+
 
 
 MIDDLEWARE = [
@@ -138,3 +159,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
