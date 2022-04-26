@@ -20,3 +20,15 @@ class SearchProducts(ListView):
             Q(name__icontains=query)
             |Q(category__name__icontains=query)
         )
+
+
+class CategoryProducts(ListView):
+    template_name = "products\product_list.html"
+    model = Product
+    context_object_name = 'product_list'
+    def get_queryset(self):
+        query = self.kwargs['category_name']
+        print(query)
+        return Product.objects.filter(
+            category__name=query
+        )

@@ -47,3 +47,7 @@ main {
 label {
     display: block;
 }
+
+.product-category {
+    text-decoration: none;
+}

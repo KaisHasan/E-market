@@ -14,7 +14,12 @@
                 <br />
                 <span class='product-property'>Price:</span> {{product.price}}
                 <br />
-                <span class='product-property'>Category:</span> {{product.category}}
+                <span class='product-property'>
+                    Category:
+                    <a class='product-category' href="{% url 'category_products' product.category %}">
+                        {{product.category}}
+                    </a>
+                </span> 
                 <br />
                 <img class='product-img' src="{% static 'products/images/new.jpg' %}" alt='new product' /> 
             </div>
