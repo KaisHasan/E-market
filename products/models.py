@@ -1,5 +1,6 @@
 from django.urls import reverse
 from django.db import models
+import uuid
 
 # Create your models here.
 class Category(models.Model):
@@ -10,6 +11,11 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    id = models.UUIDField(
+        default=uuid.uuid4,
+        primary_key=True,
+        editable=False,
+    )
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     category = models.ForeignKey(
@@ -24,5 +30,5 @@ class Product(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse("product", kwargs={"pk": self.pk})
+        return reverse("product_detail", kwargs={"pk": self.pk})
     
