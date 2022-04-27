@@ -1,0 +1,16 @@
+.product-detail-properties {
+    font-size: large;
+    font-weight: 600;
+}
+
+.product-category {
+    text-decoration: none;
+}
+
+.product-img {
+    width: 400px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}

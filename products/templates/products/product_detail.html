@@ -1,0 +1,26 @@
+{% extends 'pages\_base.html' %}
+
+{% load static %}
+
+{% block title %}Product Detail{% endblock title %}
+
+{% block head_block %}
+    <link rel='stylesheet' href="{% static 'products/css/product_detail.css' %}"
+{% endblock head_block %}
+
+{% block content %}
+    <main>
+        <h1> {{product.name}} </h1>
+        <ul class='product-detail-properties'>
+            <li> Price: {{product.price}} </li>
+            <li> Category:
+                <a class='product-category' href="{% url 'category_products' product.category %}"> 
+                    {{product.category}}
+                </a> 
+            </li>
+        </ul>
+
+        <img class='product-img' src="{% static 'products/images/new.jpg' %}" alt='new product' />
+
+    </main>
+{% endblock content %}

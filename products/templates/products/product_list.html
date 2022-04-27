@@ -10,7 +10,10 @@
     <main>
         {% for product in product_list %}
             <div class='item'>
-                <span class='product-property'> Name:</span> {{product.name}}
+                <span class='product-property'> Name:</span> 
+                <a class='product-name' href="{{product.get_absolute_url }}">
+                {{product.name}}
+                </a>
                 <br />
                 <span class='product-property'>Price:</span> {{product.price}}
                 <br />
