@@ -10,6 +10,7 @@
     <body>
         <header>
             <a class='home' href="{% url 'home' %}">Home</a>
+            <a href="{% url 'cart_items' %}"> Cart </a>|
             {% if user.is_authenticated %}
                 <span>Hello {{user.username}}</span>|
                 <a href="{% url 'account_logout' %}">logout</a>

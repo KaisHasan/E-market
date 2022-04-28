@@ -21,6 +21,7 @@
         </ul>
 
         <img class='product-img' src="{% static 'products/images/new.jpg' %}" alt='new product' />
+        <p> <a href="{% url 'add_item' product.pk %}">Add to Cart</a> </p>
 
     </main>
 {% endblock content %}

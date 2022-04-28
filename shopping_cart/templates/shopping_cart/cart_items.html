@@ -1,0 +1,18 @@
+{% extends 'pages\_base.html' %}
+
+{% block title %}Cart Items{% endblock title %}
+
+{% block content %}
+    <h1 class='main-title'>Cart</h1>
+    <main>
+        {% for order in user.orders.all %}
+            <div>
+                <p>{{order.product.name}}, {{order.product.price}}</p>
+                <br />
+                <P><a href="{% url 'remove_item' order.product.id %}">Delete Order</a></p>
+            </div>
+        {% empty %}
+            <li class='empty-list'>No orders yet.</li>
+        {% endfor %}
+    </main>
+{% endblock content %}
