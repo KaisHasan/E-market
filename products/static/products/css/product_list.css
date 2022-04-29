@@ -35,11 +35,10 @@ main {
 
 .search-bar {
     position: absolute;
-    top: 0;
+    top: 130px;
     right: 0;
     z-index:1;
     overflow-x: hidden;
-    padding-top: 130px;
     height: 100%;
     width: 300px;
 }

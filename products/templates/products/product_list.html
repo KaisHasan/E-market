@@ -3,7 +3,7 @@
 
 {% block title %}Products List{% endblock title %}
 {% block head_block %}
-    <link rel='stylesheet' href="{% static 'products/css/product_list.css' %}"
+    <link rel='stylesheet' href="{% static 'products/css/product_list.css' %}" />
 {% endblock head_block %}
 {% block content %}
     <h1 class='main-title'>Products</h1>
@@ -44,6 +44,7 @@
             <li class='empty-list'>No products yet.</li>
         {% endfor %}
     </main>
+
     <aside class='search-bar'>
         <form action="{% url 'search_results' %}" method='GET'>
             <label for='search-products'> Search in products </label>
