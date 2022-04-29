@@ -8,48 +8,39 @@
 {% block content %}
     <h1 class='main-title'>Products</h1>
     <main>
-        {% for product in product_list %}
+        {% for starred_product in starred_product_list %}
             <div class='item'>
                 <span class='product-property'> Name:</span> 
-                <a class='product-name' href="{{product.get_absolute_url }}">
-                {{product.name}}
+                <a class='product-name' href="{{starred_product.product.get_absolute_url }}">
+                {{starred_product.product.name}}
                 </a>
                 <br />
-                <span class='product-property'>Price:</span> {{product.price}}
+                <span class='product-property'>Price:</span> {{starred_product.product.price}}
                 <br />
                 <span class='product-property'>
                     Category:
-                    <a class='product-category' href="{% url 'category_products' product.category %}">
-                        {{product.category}}
+                    <a class='product-category' 
+                    href="{% url 'category_products' starred_product.product.category %}">
+                        {{starred_product.product.category}}
                     </a>
                 </span> 
                 <br />
                 {% if user.is_authenticated %}
                     <span>
-                        {% if product.pk in starred_products %}
+                        {% if starred_product in user.favorites.all %}
                             Starred |
-                            <a href="{% url 'star_unstar' product.pk %}?next={{ request.path|urlencode }}">
+                            <a href="{% url 'star_unstar' starred_product.product.pk %}?next={{ request.path|urlencode }}">
                                 Remove from favorites </a>
                         {% else %}
-                            <a href="{% url 'star_unstar' product.pk %}?next={{ request.path|urlencode }}">
+                            <a href="{% url 'star_unstar' starred_product.product.pk %}?next={{ request.path|urlencode }}">
                                 Add to favorites </a>
                         {% endif %}
                     </span>
                     <br />
                 {% endif %}
-                <img class='product-img' src="{% static 'products/images/new.jpg' %}" alt='new product' /> 
             </div>
         
         {% empty %}
             <li class='empty-list'>No products yet.</li>
         {% endfor %}
-    </main>
-    <aside class='search-bar'>
-        <form action="{% url 'search_results' %}" method='GET'>
-            <label for='search-products'> Search in products </label>
-            <input type='search' name='q' aria-label="Search through site products" 
-                placeholder='Search' />
-            <button> Search </button>
-        </form>
-    </aside>
 {% endblock content %}

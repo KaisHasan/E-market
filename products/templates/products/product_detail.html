@@ -18,6 +18,21 @@
                     {{product.category}}
                 </a> 
             </li>
+            {% if user.is_authenticated %}
+                <li>
+                    <span>
+                        {% if product.pk in starred_products %}
+                            Starred |
+                            <a href="{% url 'star_unstar' product.pk %}?next={{ request.path|urlencode }}">
+                                Remove from favorites </a>
+                        {% else %}
+                            <a href="{% url 'star_unstar' product.pk %}?next={{ request.path|urlencode }}">
+                                Add to favorites </a>
+                        {% endif %}
+                    </span>
+                    <br />
+                </li>
+            {% endif %}
         </ul>
 
         <img class='product-img' src="{% static 'products/images/new.jpg' %}" alt='new product' />

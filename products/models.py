@@ -1,6 +1,8 @@
+from itertools import product
 from django.urls import reverse
 from django.db import models
 import uuid
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 class Category(models.Model):
@@ -31,3 +33,24 @@ class Product(models.Model):
     
     def get_absolute_url(self):
         return reverse("product_detail", kwargs={"pk": self.pk})
+
+
+class StarredProducts(models.Model):
+    id = models.UUIDField(
+        default=uuid.uuid4,
+        primary_key=True,
+        editable=False
+    )
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='favorites'
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='+'
+    )
+
+    def __str__(self):
+        return f'User: {self.user} have starred {self.product}.'
