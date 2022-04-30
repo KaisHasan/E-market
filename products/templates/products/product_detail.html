@@ -13,10 +13,14 @@
         <h1> {{product.name}} </h1>
         <ul class='product-detail-properties'>
             <li> Price: {{product.price}} </li>
-            <li> Category:
-                <a class='product-category' href="{% url 'category_products' product.category %}"> 
-                    {{product.category}}
-                </a> 
+            <li>Categories:
+                {% for category in product.categories.all %}
+                    <a class='product-category' href="{% url 'category_products' category %}">
+                        {{category}}
+                    </a>,
+                {% empty %}
+                    None.
+                {% endfor %}
             </li>
             {% if user.is_authenticated %}
                 <li>

@@ -20,9 +20,8 @@ class Product(models.Model):
     )
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    category = models.ForeignKey(
+    categories = models.ManyToManyField(
         Category,
-        on_delete=models.CASCADE,
         related_name='products',
         blank=True,
         null=True

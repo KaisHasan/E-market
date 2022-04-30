@@ -18,11 +18,14 @@
                 <span class='product-property'>Price:</span> {{starred_product.product.price}}
                 <br />
                 <span class='product-property'>
-                    Category:
-                    <a class='product-category' 
-                    href="{% url 'category_products' starred_product.product.category %}">
-                        {{starred_product.product.category}}
-                    </a>
+                    Categories:
+                    {% for category in starred_product.product.categories.all %}
+                        <a class='product-category' href="{% url 'category_products' category %}">
+                            {{category}}
+                        </a>,
+                    {% empty %}
+                        None.
+                    {% endfor %}
                 </span> 
                 <br />
                 {% if user.is_authenticated %}

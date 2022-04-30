@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
-from .models import Product
+from .models import Category, Product
 from django.db.models import Q
 from django.db.models import F
 from django.views import View
@@ -68,9 +68,11 @@ class CategoryProducts(ProductList):
     def get_queryset(self):
         query = self.kwargs['category_name']
         print(query)
-        return Product.objects.filter(
-            category__name=query
-        )
+        category = Category.objects.filter(
+            name=query
+        ).get()
+        return category.products.all()
+        
 
 
 class StarredProductsList(LoginRequiredMixin, ListView):
