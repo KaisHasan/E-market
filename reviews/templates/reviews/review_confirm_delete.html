@@ -1,0 +1,13 @@
+{% extends 'pages\_base.html' %}
+
+{% block title %}Delete review{% endblock title %}
+
+{% block content %}
+    <h1 class='main-title'>Delete review</h1>
+    <main>
+        <form method="POST">
+            {% csrf_token %}
+            <button type='submit'>Delete</button>
+        </form>
+    </main>
+{% endblock content %}

@@ -41,6 +41,23 @@
 
         <img class='product-img' src="{% static 'products/images/new.jpg' %}" alt='new product' />
         <p> <a href="{% url 'add_item' product.pk %}">Add to Cart</a> </p>
+        <div class='reviews'>
+            <h2> Reviews </h2>
+            <p> <a href="{% url 'add_review' product.pk %}"> Add review </a> </p>
+            {% for review in reviews %}
+                <p>
+                    User: {{review.user}}| stars: {{review.stars}}
+                    <br />
+                    comment:{{review.comment}}
+                    <br />
+                    <a href="{% url 'delete_review' review.pk %}"> Delete this review</a>
+                    <br />
+                    <br />
+                </p>
+            {% empty %}
+                <p> No reviews yet. </p>
+            {% endfor %}
+        </div>
 
     </main>
 {% endblock content %}

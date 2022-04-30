@@ -1,3 +1,4 @@
+from itertools import product
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
@@ -12,6 +13,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import AnonymousUser
+from reviews.models import Review
 
 
 # Create your views here.
@@ -40,6 +42,9 @@ class ProductDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['reviews'] = Review.objects.filter(
+            product=self.kwargs['pk']
+        )
         if isinstance(self.request.user, AnonymousUser):
             return context      
         favorites = StarredProducts.objects.filter(
@@ -47,6 +52,7 @@ class ProductDetail(DetailView):
         ).values_list('product')
         favorites = [product[0] for product in list(favorites)]
         context['starred_products'] = favorites
+        
         return context
 
 
