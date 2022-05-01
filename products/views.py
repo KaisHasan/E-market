@@ -48,9 +48,13 @@ class ProductDetail(DetailView):
         context['reviews'] = Review.objects.filter(
             product=self.kwargs['pk']
         )
+        try:
+            other_product_key = self.request.GET.get('product')
+        except KeyError:
+            other_product_key = self.kwargs['pk']
         context['compare_form'] = CompareForm(
             initial={
-                'product':self.kwargs['pk']
+                'product':other_product_key
             }
         )
         if isinstance(self.request.user, AnonymousUser):
@@ -67,6 +71,7 @@ class ProductDetail(DetailView):
             context['user_not_posted_review'] = 1
         
         return context
+
 
 
 class SearchProducts(ListView):
@@ -117,16 +122,17 @@ class StarUnStarProduct(View):
         return HttpResponseRedirect(next)
 
 
-class CompareView(TemplateView):
-    template_name = r'products\compare.html'
+class CompareView(ProductDetail):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['show_compare'] = True
         context['first_item'] = Product.objects.get(
-            id=self.kwargs['pk1']
+            id=self.kwargs['pk']
         )
         context['second_item'] = Product.objects.get(
             id=self.request.GET.get('product')
         )
         return context
+
 
