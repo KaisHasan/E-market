@@ -43,14 +43,17 @@
         <p> <a href="{% url 'add_item' product.pk %}">Add to Cart</a> </p>
         <div class='reviews'>
             <h2> Reviews </h2>
-            <p> <a href="{% url 'add_review' product.pk %}"> Add review </a> </p>
+            {% if user.is_authenticated and user_not_posted_review %}
+                <p> <a href="{% url 'add_review' product.pk %}"> Add review </a> </p>
+            {% endif %}
             {% for review in reviews %}
-                <p>
+                <p id='{{ review.pk }}'>
                     User: {{review.user}}| stars: {{review.stars}}
                     <br />
                     comment:{{review.comment}}
                     <br />
-                    <a href="{% url 'delete_review' review.pk %}"> Delete this review</a>
+                    <a href="{% url 'delete_review' review.pk %}"> Delete </a>|
+                    <a href="{% url 'edit_review' product.pk review.pk %}"> Edit </a>
                     <br />
                     <br />
                 </p>

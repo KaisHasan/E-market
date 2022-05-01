@@ -1,12 +1,14 @@
 from dataclasses import field
+from re import template
 from django.http import HttpResponseRedirect
 from .models import Review
-from django.views.generic import CreateView, DeleteView
+from django.views.generic import CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from products.models import Product
 
 
 # Create your views here.
+
 
 class CreateReviewView(LoginRequiredMixin, CreateView):
     model = Review
@@ -27,11 +29,11 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
         )
         return super().form_valid(form)
     
-    def get_success_url(self) -> str:
+    def get_success_url(self):
         product = Product.objects.get(
             id=self.kwargs['pk']
         )
-        return product.get_absolute_url()
+        return product.get_absolute_url() + '#' + str(self.object.id)
 
 
 class DeleteReviewView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -52,3 +54,25 @@ class DeleteReviewView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             id=review_id
         )
         return self.request.user == review.user
+
+
+class EditReviewView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Review
+    fields = ['stars', 'comment']
+    template_name = r'reviews\add_review.html'
+
+    def test_func(self):
+        review_id = self.kwargs['pk']
+        review = Review.objects.get(
+            id=review_id
+        )
+        return self.request.user == review.user
+
+    def get_success_url(self):
+        product = Product.objects.get(
+            id=self.kwargs['product_pk']
+        )
+        return product.get_absolute_url() + '#' + str(self.object.id)
+
+
+

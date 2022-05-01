@@ -14,6 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import AnonymousUser
 from reviews.models import Review
+from django.contrib.auth import get_user_model
 
 
 # Create your views here.
@@ -52,6 +53,11 @@ class ProductDetail(DetailView):
         ).values_list('product')
         favorites = [product[0] for product in list(favorites)]
         context['starred_products'] = favorites
+
+        if Review.objects.filter(user=self.request.user, product=self.kwargs['pk']):
+            context['user_not_posted_review'] = 0
+        else:
+            context['user_not_posted_review'] = 1
         
         return context
 

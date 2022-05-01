@@ -37,6 +37,4 @@ class Review(models.Model):
     
     def __str__(self):
         return f'user: {self.user} gives this product {self.stars} stars'
-    
-    def get_absolute_url(self):
-        return reverse("review", kwargs={"pk": self.pk})
+
