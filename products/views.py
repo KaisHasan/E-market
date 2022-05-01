@@ -1,7 +1,8 @@
 from itertools import product
+from re import template
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 from .models import Category, Product
 from django.db.models import Q
 from django.db.models import F
@@ -15,6 +16,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import AnonymousUser
 from reviews.models import Review
 from django.contrib.auth import get_user_model
+from .forms import CompareForm
 
 
 # Create your views here.
@@ -45,6 +47,11 @@ class ProductDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context['reviews'] = Review.objects.filter(
             product=self.kwargs['pk']
+        )
+        context['compare_form'] = CompareForm(
+            initial={
+                'product':self.kwargs['pk']
+            }
         )
         if isinstance(self.request.user, AnonymousUser):
             return context      
@@ -108,3 +115,18 @@ class StarUnStarProduct(View):
             starred_product = StarredProducts.objects.create(user=user, product=product)
         next = request.GET.get('next')
         return HttpResponseRedirect(next)
+
+
+class CompareView(TemplateView):
+    template_name = r'products\compare.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['first_item'] = Product.objects.get(
+            id=self.kwargs['pk1']
+        )
+        context['second_item'] = Product.objects.get(
+            id=self.request.GET.get('product')
+        )
+        return context
+

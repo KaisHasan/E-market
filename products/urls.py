@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import ProductList, SearchProducts, CategoryProducts, ProductDetail
-from .views import StarredProductsList, StarUnStarProduct
+from .views import StarredProductsList, StarUnStarProduct,CompareView
 
 urlpatterns = [
     path('', ProductList.as_view(), name='product_list'),
@@ -9,4 +9,5 @@ urlpatterns = [
     path('product_detail/<uuid:pk>/', ProductDetail.as_view(), name='product_detail'),
     path('favorites/star_unstar/<uuid:pk>', StarUnStarProduct.as_view(), name='star_unstar'),
     path('favorites/', StarredProductsList.as_view(), name='favorites'),
+    path('compare/<uuid:pk1>/', CompareView.as_view(), name='compare'),
 ]

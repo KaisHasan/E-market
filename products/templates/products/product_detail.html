@@ -41,6 +41,13 @@
 
         <img class='product-img' src="{% static 'products/images/new.jpg' %}" alt='new product' />
         <p> <a href="{% url 'add_item' product.pk %}">Add to Cart</a> </p>
+        <div class='compare'>
+            <h2> Compare</h2>
+            <form action="{% url 'compare' product.pk %}" method='GET'>
+                {{compare_form}}
+                <button type='submit'>Compare</button>
+            </form>
+        </div>
         <div class='reviews'>
             <h2> Reviews </h2>
             {% if user.is_authenticated and user_not_posted_review %}
