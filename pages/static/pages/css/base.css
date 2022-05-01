@@ -20,3 +20,33 @@ header a {
 body {
     background-color: gray;
 }
+
+.no-underline {
+    text-decoration: none;
+}
+
+.block {
+    display: block;
+}
+
+.middle {
+    width: fit-content;
+    top: 300px;
+    position: fixed;
+    left: 570px;
+    display: block;
+    padding: 2px;
+    border: 4px solid black;
+    border-radius: 10px;
+    background-color: lightgreen;
+}
+
+.shopping-cart-img {
+    width: 1000px;
+    height: 500px;
+    display: block;
+    position: fixed;
+    top: 100px;
+    left: 150px;
+    z-index: -1;
+}
