@@ -58,4 +58,16 @@
             <button> Search </button>
         </form>
     </aside>
+    <aside class='category-catalog'>
+        <h3> Categories </h3>
+        <table>
+            {% for category in categories_names %}
+                <tr>
+                    <td>
+                        <a href="{% url 'category_products' category %}">{{category}}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </aside>
 {% endblock content %}

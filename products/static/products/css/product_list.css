@@ -39,7 +39,17 @@ main {
     right: 0;
     z-index:1;
     overflow-x: hidden;
-    height: 100%;
+    height: 60px;
+    width: 300px;
+}
+
+.category-catalog {
+    position: absolute;
+    top: 190px;
+    right: 0;
+    z-index:1;
+    overflow-x: hidden;
+    height: 100px;
     width: 300px;
 }
 

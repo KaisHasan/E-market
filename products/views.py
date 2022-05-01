@@ -28,6 +28,9 @@ class ProductList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        categories_names = list(Category.objects.all().values_list('name'))
+        categories_names = [category_name[0] for category_name in categories_names]
+        context['categories_names'] = categories_names
         if isinstance(self.request.user, AnonymousUser):
             return context 
         favorites = StarredProducts.objects.filter(
