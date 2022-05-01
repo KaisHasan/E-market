@@ -4,7 +4,6 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, TemplateView
 from .models import Category, Product
-from django.db.models import Q
 from django.db.models import F
 from django.views import View
 from django.shortcuts import get_object_or_404
@@ -77,16 +76,12 @@ class ProductDetail(DetailView):
 
 
 
-class SearchProducts(ListView):
-
-    template_name = "products\product_list.html"
-    model = Product
-    context_object_name = 'product_list'
+class SearchProducts(ProductList):
+    
     def get_queryset(self):
         query = self.request.GET.get('q')
         return Product.objects.filter(
-            Q(name__icontains=query)
-            |Q(category__name__icontains=query)
+            name__icontains=query
         )
 
 

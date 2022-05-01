@@ -1,5 +1,6 @@
 {% extends 'pages\_base.html' %}
 {% load static %}
+{% load query_transform %}
 
 {% block title %}Products List{% endblock title %}
 {% block head_block %}
@@ -51,8 +52,8 @@
         <div class="pagination">
             <span class="step-links">
                 {% if page_obj.has_previous %}
-                    <a href="?page=1">&laquo; first</a>
-                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    <a href="?{% query_transform  page=1 %}">&laquo; first</a>
+                    <a href="?{% query_transform  page=page_obj.previous_page_number %}">previous</a>
                 {% endif %}
         
                 <span class="current">
@@ -60,8 +61,8 @@
                 </span>
         
                 {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">next</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    <a href="?{% query_transform  page=page_obj.next_page_number %}">next</a>
+                    <a href="?{% query_transform  page=page_obj.paginator.num_pages %}">last &raquo;</a>
                 {% endif %}
             </span>
         </div>
