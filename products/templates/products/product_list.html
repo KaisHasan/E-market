@@ -8,7 +8,7 @@
 {% endblock head_block %}
 {% block content %}
     <p>
-        <a href="{{request.META.HTTP_REFERER}}">&larr; Go back </a>
+        <a href="{% url 'home' %}">&larr; Go back </a>
     </p>
     <h1 class='main-title'>Products</h1>
     <main>
