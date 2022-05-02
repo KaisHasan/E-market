@@ -1,5 +1,6 @@
 {% extends 'pages\_base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% load query_transform %}
 
 {% block title %}Products List{% endblock title %}
@@ -91,5 +92,11 @@
                 </tr>
             {% endfor %}
         </table>
+    </aside>
+    <aside class='sort-by'>
+        <form method='GET'>
+            {{sort_by_form}}
+            <button> Sort </button>
+        </form>
     </aside>
 {% endblock content %}

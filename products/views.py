@@ -15,7 +15,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import AnonymousUser
 from reviews.models import Review
 from django.contrib.auth import get_user_model
-from .forms import CompareForm
+from .forms import CompareForm, SortForm
 
 
 # Create your views here.
@@ -30,6 +30,7 @@ class ProductList(ListView):
         categories_names = list(Category.objects.all().values_list('name'))
         categories_names = [category_name[0] for category_name in categories_names]
         context['categories_names'] = categories_names
+        context['sort_by_form'] = SortForm()
         if isinstance(self.request.user, AnonymousUser):
             return context 
         favorites = StarredProducts.objects.filter(
@@ -38,6 +39,16 @@ class ProductList(ListView):
         favorites = [product[0] for product in list(favorites)]
         context['starred_products'] = favorites
         return context
+
+    def get_ordering(self):
+        try:
+            ordering = self.request.GET.get('sort_by')
+            desc_asc = self.request.GET.get('desc_asc')
+            if desc_asc == 'desc':
+                ordering = '-' + ordering
+            return ordering
+        except:
+            return super().get_ordering()
 
 
 class ProductDetail(DetailView):
