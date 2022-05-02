@@ -116,9 +116,9 @@ WSGI_APPLICATION = 'e_market.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': env.dj_db_url("DATABASE_URL")
-}
+import dj_database_url
+DATABASES = dict()
+DATABASES['default'] = dj_database_url.config(env, conn_max_age=600)
 
 
 # Password validation
