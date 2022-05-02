@@ -11,15 +11,24 @@
 {% endblock head_block %}
 
 {% block content %}
+    <p>
+        <a href="{{request.META.HTTP_REFERER}}">&larr; Go back </a>
+    </p>
     <main>
-        <h1> {{product.name}} </h1>
+        <div class='product-title'>
+            <h1 class='product-name'> {{product.name}} </h1>
+            <a class='add-to-cart' href="{% url 'add_item' product.pk %}">
+                <img class='add-to-cart-button' src="{% static 'products/images/add_to_cart_button.png'%}" 
+                    alt="Add to cart" />
+            </a>
+        </div>
         <ul class='product-detail-properties'>
             <li> Price: {{product.price}} </li>
             <li>Categories:
                 {% for category in product.categories.all %}
-                    <a class='product-category' href="{% url 'category_products' category %}">
+                    [<a class='product-category' href="{% url 'category_products' category %}">
                         {{category}}
-                    </a>,
+                    </a>] 
                 {% empty %}
                     None.
                 {% endfor %}
@@ -28,7 +37,7 @@
                 <li>
                     <span>
                         {% if product.pk in starred_products %}
-                            Starred |
+                            <span class='starred'>Starred</span> |
                             <a href="{% url 'star_unstar' product.pk %}?next={{ request.path|urlencode }}">
                                 Remove from favorites </a>
                         {% else %}
@@ -42,7 +51,9 @@
         </ul>
 
         <img class='product-img' src="{% static 'products/images/new.jpg' %}" alt='new product' />
-        <p> <a href="{% url 'add_item' product.pk %}">Add to Cart</a> </p>
+
+        
+        
         <div class='compare'>
             <h2> Compare</h2>
             <form action="{% url 'compare' product.pk %}" method='GET'>
@@ -72,10 +83,15 @@
                 <p> <a href="{% url 'add_review' product.pk %}"> Add review </a> </p>
             {% endif %}
             {% for review in reviews %}
-                <p id='{{ review.pk }}'>
-                    User: {{review.user}}| stars: {{review.stars}}
+                <p id='{{ review.pk }}'  class='review-item'>
+                    <b>User:</b> {{review.user}}
                     <br />
-                    comment:{{review.comment}}
+                    <b>stars:</b> {{review.stars}}
+                    <br />
+                    <b>comment:</b>
+                    <br />
+                    <span class='comment'>{{review.comment}}</span>
+                    <br />
                     <br />
                     <a href="{% url 'delete_review' review.pk %}"> Delete </a>|
                     <a href="{% url 'edit_review' product.pk review.pk %}"> Edit </a>
