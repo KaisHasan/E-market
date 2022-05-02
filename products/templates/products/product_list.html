@@ -5,6 +5,7 @@
 {% block title %}Products List{% endblock title %}
 {% block head_block %}
     <link rel='stylesheet' href="{% static 'products/css/product_list.css' %}" />
+    
 {% endblock head_block %}
 {% block content %}
     <p>
@@ -74,9 +75,9 @@
     <aside class='search-bar'>
         <form action="{% url 'search_results' %}" method='GET'>
             <label for='search-products'> Search in products </label>
-            <input type='search' name='q' aria-label="Search through site products" 
+            <input class="form-control mr-sm-2" type='search' name='q' aria-label="Search through site products" 
                 placeholder='Search' />
-            <button> Search </button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type='submit'> Search </button>
         </form>
     </aside>
     <aside class='category-catalog'>
