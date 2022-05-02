@@ -1,0 +1,90 @@
+{
+    "products":[
+        {
+            "name":"Calculus I",
+            "price":90,
+            "categories":["Books"]
+        },
+        {
+            "name":"Calculus II",
+            "price":110,
+            "categories":["Books"]
+        },
+        {
+            "name":"Calculus III",
+            "price":200,
+            "categories":["Books"]
+        },
+        {
+            "name":"Linear Algebra",
+            "price":150,
+            "categories":["Books"]
+        },
+        {
+            "name":"Probability",
+            "price":100,
+            "categories":["Books"]
+        },
+        {
+            "name":"Statistics",
+            "price":170,
+            "categories":["Books"]
+        },
+        {
+            "name":"C++",
+            "price":50,
+            "categories":["Books"]
+        },
+        {
+            "name":"python",
+            "price":50,
+            "categories":["Books"]
+        },
+        {
+            "name":"Counter Strike",
+            "price":30,
+            "categories":["Video games"]
+        },
+        {
+            "name":"Battlefield V",
+            "price":140,
+            "categories":["Video games"]
+        },
+        {
+            "name":"Civilizations",
+            "price":20,
+            "categories":["Video games"]
+        },
+        {
+            "name":"Spider man",
+            "price":30,
+            "categories":["Video games"]
+        },
+        {
+            "name":"League of Legends",
+            "price":40,
+            "categories":["Video games"]
+        },
+        {
+            "name":"Aleph",
+            "price":35,
+            "categories":["Books"]
+        },
+        {
+            "name":"Origin",
+            "price":50,
+            "categories":["Books"]
+        },
+        {
+            "name":"Siddhartha",
+            "price":7,
+            "categories":["Books"]
+        },
+        {
+            "name":"The stranger",
+            "price":8,
+            "categories":["Books"]
+        }
+
+    ]
+}
