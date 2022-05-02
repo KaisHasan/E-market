@@ -7,7 +7,7 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('products', '0003_auto_20220427_1938'),
+        ('products', '0002_product_new_id'),
     ]
 
     operations = [
