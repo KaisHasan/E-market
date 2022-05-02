@@ -2,6 +2,7 @@
     width: fit-content;
     font-size: large;
     padding-right: 5px;
+    margin-top: 100px;
     font-weight: 600;
 
 }
@@ -48,7 +49,7 @@ a {
     width: 200px;
     height: 50px;
     margin-top: 8px;
-    margin-left: 10px;
+    margin-left: 100px;
 }
 
 .review-item {

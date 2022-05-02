@@ -13,8 +13,13 @@ class SortForm(Form):
         ('name', 'Name'),
         ('price', 'Price')
     ]
-    sort_by = ChoiceField(choices=CHOICES1, label='Sort by:', widget=forms.RadioSelect)
+    sort_by = ChoiceField(choices=CHOICES1, label='', widget=forms.RadioSelect)
     CHOICES2 = [
         ('desc', 'Desc.'), ('asc', 'Asc.')
     ]
-    desc_asc = ChoiceField(choices=CHOICES2, widget=forms.RadioSelect)
+    desc_asc = ChoiceField(choices=CHOICES2,label='', widget=forms.RadioSelect)
+
+    def __init__(self, *args, **kwargs):
+        super(SortForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-inline'

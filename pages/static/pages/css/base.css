@@ -25,6 +25,11 @@ body {
     text-decoration: none;
 }
 
+.no-underline:hover {
+    text-decoration: none;
+    color: blue;
+}
+
 .block {
     display: block;
 }

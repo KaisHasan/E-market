@@ -27,9 +27,14 @@ class ProductList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        categories_names = list(Category.objects.all().values_list('name'))
-        categories_names = [category_name[0] for category_name in categories_names]
-        context['categories_names'] = categories_names
+        categories_objects = Category.objects.all()
+        categories = []
+        for category in categories_objects:
+            name = category.name
+            num = category.products.all().count()
+            categories.append((name, num))
+
+        context['categories'] = categories
         context['sort_by_form'] = SortForm()
         if isinstance(self.request.user, AnonymousUser):
             return context 

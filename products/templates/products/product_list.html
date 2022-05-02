@@ -54,49 +54,69 @@
         {% empty %}
             <li class='empty-list'>No products yet.</li>
         {% endfor %}
-        <div class="pagination">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                    <a href="?{% query_transform  page=1 %}">&laquo; first</a>
-                    <a href="?{% query_transform  page=page_obj.previous_page_number %}">previous</a>
-                {% endif %}
         
-                <span class="current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-        
-                {% if page_obj.has_next %}
-                    <a href="?{% query_transform  page=page_obj.next_page_number %}">next</a>
-                    <a href="?{% query_transform  page=page_obj.paginator.num_pages %}">last &raquo;</a>
-                {% endif %}
-            </span>
-        </div>
     </main>
+
+    <div class="pagination">
+        <ul class="pagination">
+            
+            {% if page_obj.has_previous %}
+                <li class='page-item'>
+                    <a class="page-link" href="?{% query_transform  page=1 %}">&laquo; first</a>
+                </li>
+                <li class='page-item'>
+                    <a class="page-link" href="?{% query_transform  page=page_obj.previous_page_number %}">
+                        previous</a>
+                </li>
+            {% endif %}
+            </li>
+            <li class='page-item'>
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </li>
+            {% if page_obj.has_next %}
+            <li class='page-item'>
+                <a class="page-link" href="?{% query_transform  page=page_obj.next_page_number %}">next</a>
+            </li>
+            <li class='page-item'>
+                <a class="page-link" href="?{% query_transform  page=page_obj.paginator.num_pages %}">
+                    last &raquo;</a>
+            </li>
+            {% endif %}
+        </span>
+    </div>
 
     <aside class='search-bar'>
         <form action="{% url 'search_results' %}" method='GET'>
             <label for='search-products'> Search in products </label>
-            <input class="form-control mr-sm-2" type='search' name='q' aria-label="Search through site products" 
+            <input class="search-text form-control mr-sm-2" type='search' name='q' aria-label="Search through site products" 
                 placeholder='Search' />
             <button class="btn btn-outline-success my-2 my-sm-0" type='submit'> Search </button>
         </form>
     </aside>
-    <aside class='category-catalog'>
-        <h3> Categories </h3>
-        <table>
-            {% for category in categories_names %}
-                <tr>
-                    <td>
-                        <a href="{% url 'category_products' category %}">{{category}}</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-    </aside>
+    
     <aside class='sort-by'>
         <form method='GET'>
-            {{sort_by_form}}
-            <button> Sort </button>
+                <div class='sort-by-field'>
+                    <label class='form-check-label '> Sort by: </label>
+                    {{sort_by_form.sort_by}}
+                </div>
+                <br />
+                <div class='desc-asc-field'>
+                    {{sort_by_form.desc_asc}}
+                </div>
+                <br />
+            <button class='btn btn-outline-success my-2 my-sm-0'> Sort </button>
         </form>
+    </aside>
+    <aside class='category-catalog'>
+        <h3> Categories </h3>
+        <ul class="list-group">
+            {% for category in categories %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{% url 'category_products' category.0 %}">{{category.0}}</a>
+                    <span class="badge badge-primary badge-pill">{{category.1}}</span>
+                </li>
+            {% endfor %}
+          </ul>
     </aside>
 {% endblock content %}
