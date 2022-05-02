@@ -9,6 +9,10 @@ django-environ = "*"
 environ = "*"
 django-allauth = "*"
 django-crispy-forms = "*"
+whitenoise = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
