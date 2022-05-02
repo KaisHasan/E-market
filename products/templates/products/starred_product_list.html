@@ -6,6 +6,9 @@
     <link rel='stylesheet' href="{% static 'products/css/product_list.css' %}" />
 {% endblock head_block %}
 {% block content %}
+    <p>
+        <a href="{{request.META.HTTP_REFERER}}">&larr; Go back </a>
+    </p>
     <h1 class='main-title'>Products</h1>
     <main>
         {% for starred_product in starred_product_list %}
@@ -20,9 +23,9 @@
                 <span class='product-property'>
                     Categories:
                     {% for category in starred_product.product.categories.all %}
-                        <a class='product-category' href="{% url 'category_products' category %}">
+                        [<a class='product-category' href="{% url 'category_products' category %}">
                             {{category}}
-                        </a>,
+                        </a>] 
                     {% empty %}
                         None.
                     {% endfor %}
@@ -31,7 +34,7 @@
                 {% if user.is_authenticated %}
                     <span>
                         {% if starred_product in user.favorites.all %}
-                            Starred |
+                            <span class='starred'>Starred</span> |
                             <a href="{% url 'star_unstar' starred_product.product.pk %}?next={{ request.path|urlencode }}">
                                 Remove from favorites </a>
                         {% else %}
@@ -40,6 +43,7 @@
                         {% endif %}
                     </span>
                     <br />
+                    <img class='product-img' src="{% static 'products/images/new.jpg' %}" alt='new product' />
                 {% endif %}
             </div>
         
