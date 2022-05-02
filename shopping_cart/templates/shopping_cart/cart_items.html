@@ -1,15 +1,27 @@
 {% extends 'pages\_base.html' %}
 
+{% load static %}
+
 {% block title %}Cart Items{% endblock title %}
 
+{% block head_block %}
+    <link rel='stylesheet' href="{% static 'shopping_cart/css/cart.css' %}" />
+{% endblock head_block %}
+
 {% block content %}
+    <p>
+        <a href="{{request.META.HTTP_REFERER}}">&larr; Go back </a>
+    </p>
     <h1 class='main-title'>Cart</h1>
     <main>
         {% for order in user.orders.all %}
-            <div>
-                <p>{{order.product.name}}, {{order.product.price}}</p>
-                <br />
-                <P><a href="{% url 'remove_item' order.product.id %}">Delete Order</a></p>
+            <div class='order-item'>
+                <p class='product-name'>
+                    <a href="{% url 'product_detail' order.product.id %}">{{order.product.name}}</a>
+                </p>
+                <p class='number-of-items'> {{order.num_items}} </p>
+                <p><b>Price: </b>{{order.product.price}}</p>
+                <p><a href="{% url 'remove_item' order.product.id %}">Delete</a></p>
             </div>
         {% empty %}
             <li class='empty-list'>No orders yet.</li>
