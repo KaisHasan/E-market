@@ -2,7 +2,7 @@
     border: 5px dotted black;
     box-sizing: border-box;
     width: 300px;
-    height: 300px;
+    height: 330px;
     margin: 10px 10px;
     padding: 5px;
     text-align: center;
@@ -12,7 +12,7 @@
 main {
     display: flex;
     justify-content: flex-start;
-    max-width: 960px;
+    max-width: 80%;
     flex-wrap: wrap;
     height: max-content;
     padding: 10px 0;
@@ -43,21 +43,27 @@ main {
 .search-bar {
     position: absolute;
     top: 130px;
-    right: 0;
+    right: 10;
     z-index:1;
     overflow-x: hidden;
-    height: 60px;
-    width: 300px;
+    height: 80px;
+    width: 20%;
+    padding-left: 5px;
+    border-left: 2px solid black;
+    box-shadow: 0px 0px 2px 0px;
 }
 
 .category-catalog {
     position: absolute;
-    top: 190px;
-    right: 0;
+    top: 250px;
+    right: 10;
     z-index:1;
     overflow-x: hidden;
-    height: 100px;
-    width: 300px;
+    height: 120px;
+    width: 20%;
+    padding-left: 5px;
+    border-left: 2px solid black;
+    box-shadow: 0px 0px 2px 0px;
 }
 
 label {
@@ -70,5 +76,15 @@ label {
 
 .product-name {
     text-decoration: none;
+    font-size: large;
+    font-weight: 600;
 }
 
+a {
+    text-decoration: none;
+}
+
+.starred {
+    color: rgb(255, 227, 66);
+    font-weight: 700;
+}

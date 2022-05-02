@@ -21,9 +21,9 @@
                 <span class='product-property'>
                     Categories:
                     {% for category in product.categories.all %}
-                        <a class='product-category' href="{% url 'category_products' category %}">
+                        [<a class='product-category' href="{% url 'category_products' category %}">
                             {{category}}
-                        </a>,
+                        </a>] 
                     {% empty %}
                         None.
                     {% endfor %}
@@ -33,7 +33,7 @@
                 {% if user.is_authenticated %}
                     <span>
                         {% if product.pk in starred_products %}
-                            Starred |
+                            <span class='starred'>Starred</span> |
                             <a href="{% url 'star_unstar' product.pk %}?next={{ request.path|urlencode }}">
                                 Remove from favorites </a>
                         {% else %}
