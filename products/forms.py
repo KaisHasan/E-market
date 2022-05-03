@@ -7,6 +7,9 @@ class CompareForm(Form):
     CHOICES = list(Product.objects.all().values_list('id', 'name'))
     product = ChoiceField(choices=CHOICES, label='Compare with:')
 
+    def __init__(self, *args, **kwargs):
+        self.fields['product'].choices = list(Product.objects.all().values_list('id', 'name'))
+
 
 class SortForm(Form):
     CHOICES1 = [
