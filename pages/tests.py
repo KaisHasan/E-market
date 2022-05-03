@@ -19,7 +19,7 @@ class HomePageTests(SimpleTestCase):
         self.assertEqual(self.response.status_code, 200)
     
     def test_homepage_template(self):
-        self.assertTemplateUsed(self.response, 'pages\home.html')
+        self.assertTemplateUsed(self.response, 'pages/home.html')
 
     def test_homepage_contains_correct_html(self):
         self.assertContains(self.response, 'E-market')

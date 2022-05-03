@@ -12,7 +12,7 @@ from products.models import Product
 
 class CreateReviewView(LoginRequiredMixin, CreateView):
     model = Review
-    template_name = r"reviews\add_review.html"
+    template_name = r"reviews/add_review.html"
     fields = ['stars', 'comment']
 
     def get_context_data(self, **kwargs):
@@ -59,7 +59,7 @@ class DeleteReviewView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class EditReviewView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Review
     fields = ['stars', 'comment']
-    template_name = r'reviews\add_review.html'
+    template_name = r'reviews/add_review.html'
 
     def test_func(self):
         review_id = self.kwargs['pk']

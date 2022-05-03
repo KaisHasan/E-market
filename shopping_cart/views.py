@@ -11,7 +11,7 @@ from django.utils.decorators import method_decorator
 # Create your views here.
 
 class CartItemsList(TemplateView):
-    template_name = "shopping_cart\cart_items.html"
+    template_name = "shopping_cart/cart_items.html"
 
 
 class AddItemView(View):

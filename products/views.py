@@ -21,7 +21,7 @@ from .forms import CompareForm, SortForm
 # Create your views here.
 class ProductList(ListView):
 
-    template_name = "products\product_list.html"
+    template_name = "products/product_list.html"
     model = Product
     paginate_by = 9
 
@@ -58,7 +58,7 @@ class ProductList(ListView):
 
 class ProductDetail(DetailView):
 
-    template_name = "products\product_detail.html"
+    template_name = "products/product_detail.html"
     model = Product
 
     def get_context_data(self, **kwargs):
@@ -114,7 +114,7 @@ class CategoryProducts(ProductList):
 
 
 class StarredProductsList(LoginRequiredMixin, ListView):
-    template_name = "products\starred_product_list.html"
+    template_name = "products/starred_product_list.html"
     model = StarredProducts
     context_object_name = 'starred_product_list'
 
