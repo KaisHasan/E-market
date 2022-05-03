@@ -34,7 +34,7 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = [
     'local',
-    '127.0.0.1'
+    '127.0.0.1',
     'e-market314.herokuapp.com'
 ]
 
