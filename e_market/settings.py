@@ -119,8 +119,8 @@ WSGI_APPLICATION = 'e_market.wsgi.application'
 
 import dj_database_url 
 DATABASES = {
-    'default': 'postgres://qmwkmeuciwanyh:f718e0a89340bb8463e50ef0b6d06e5c37005fdb2e2cdd458253434375d13cfd@ec2-52-71-69-66.compute-1.amazonaws.com:5432/d8rnpj7dovbg9o'
-}
+    'default': dj_database_url.parse(
+        'postgres://qmwkmeuciwanyh:f718e0a89340bb8463e50ef0b6d06e5c37005fdb2e2cdd458253434375d13cfd@ec2-52-71-69-66.compute-1.amazonaws.com:5432/d8rnpj7dovbg9o')}
 
 
 # Password validation
