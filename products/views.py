@@ -15,7 +15,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import AnonymousUser
 from reviews.models import Review
 from django.contrib.auth import get_user_model
-#from .forms import CompareForm, SortForm
+from .forms import CompareForm, SortForm
 
 
 # Create your views here.
