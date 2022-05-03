@@ -95,7 +95,7 @@
     </aside>
     
     <aside class='sort-by'>
-        <form action="{{request.get_full_path}}" method='GET'>
+        <form action="{% url 'product_list' %}" method='GET'>
                 <div class='sort-by-field'>
                     <label class='form-check-label '> Sort by: </label>
                     {{sort_by_form.sort_by}}
