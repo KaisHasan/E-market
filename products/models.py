@@ -1,4 +1,3 @@
-from itertools import product
 from django.urls import reverse
 from django.db import models
 import uuid
