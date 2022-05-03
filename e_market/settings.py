@@ -35,7 +35,7 @@ DEBUG = env('DEBUG')
 ALLOWED_HOSTS = [
     'local',
     '127.0.0.1',
-    'e-market314.herokuapp.com'
+    '.herokuapp.com'
 ]
 
 
@@ -157,7 +157,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE =  'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
