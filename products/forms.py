@@ -4,7 +4,7 @@ from .models import Product
 from django import forms
 
 class CompareForm(Form):
-    CHOICES = list(Product.objects.all().values_list('id', 'name'))
+    CHOICES = list(('', ''))
     product = ChoiceField(choices=CHOICES, label='Compare with:')
 
     def __init__(self, *args, **kwargs):

@@ -30,12 +30,10 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # env('DEBUG')
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = [
-    'local',
-    '127.0.0.1',
-    '.herokuapp.com'
+    
 ]
 
 
@@ -117,9 +115,16 @@ WSGI_APPLICATION = 'e_market.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
-import dj_database_url 
-DATABASES = { 'default': dj_database_url.parse( 'postgres://qmwkmeuciwanyh:f718e0a89340bb8463e50ef0b6d06e5c37005fdb2e2cdd458253434375d13cfd@ec2-52-71-69-66.compute-1.amazonaws.com:5432/d8rnpj7dovbg9o')}
-#DATABASES = {'default':{'ENGINE': 'django.db.backends.sqlite3', 'NAME': 'db.sqlite3'},}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': 'db',
+        'PORT': 5432
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
