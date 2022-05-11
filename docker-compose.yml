@@ -19,3 +19,6 @@ services:
       POSTGRES_USER: kais_hasan
       POSTGRES_DB: e_market_postgres_db
       POSTGRES_PASSWORD: 12345678ABC
+    
+    volumes:
+      - ./data:/var/lib/postgresql/data
