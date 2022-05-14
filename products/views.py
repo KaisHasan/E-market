@@ -67,9 +67,11 @@ class ProductDetail(DetailView):
         context['reviews'] = Review.objects.filter(
             product=self.kwargs['pk']
         )
-        try:
+
+        # CompareForm context
+        if 'product' in self.request.GET:
             other_product_key = self.request.GET.get('product')
-        except KeyError:
+        else:
             other_product_key = self.kwargs['pk']
         context['compare_form'] = CompareForm(
             initial={
@@ -80,6 +82,8 @@ class ProductDetail(DetailView):
                 'show_compare': False
             }
         )
+
+        # User specific context
         if isinstance(self.request.user, AnonymousUser):
             return context      
         favorites = StarredProducts.objects.filter(
@@ -98,7 +102,7 @@ class ProductDetail(DetailView):
 
 
 class SearchProducts(ProductList):
-    
+
     def get_queryset(self):
         query = self.request.GET.get('q')
         return Product.objects.filter(
