@@ -1,0 +1,12 @@
+<form action="{% url 'product_list' %}" method='GET'>
+    <div class='sort-by-field'>
+        <label class='form-check-label '> Sort by: </label>
+        {{form.sort_by}}
+    </div>
+    <br />
+    <div class='desc-asc-field'>
+        {{form.desc_asc}}
+    </div>
+    <br />
+    <button class='btn btn-outline-success my-2 my-sm-0'> Sort </button>
+</form>

@@ -1,0 +1,23 @@
+{% load crispy_forms_tags %}
+
+<h2> Compare</h2>
+<form action="{% url 'compare' product_pk %}" method='GET'>
+    {{form|crispy}}
+    <button type='submit'>Compare</button>
+</form>
+{% if show_compare %}
+    <div class='compare-results'>
+        <table border="10px">
+            <tr>
+                <th></th>
+                <th>{{first_item.name}}</th>
+                <th>{{second_item.name}}</th>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{first_item.price}}</td>
+                <td>{{second_item.price}}</td>
+            </tr>
+        </table>
+    </div>
+{% endif %}

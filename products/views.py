@@ -15,7 +15,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import AnonymousUser
 from reviews.models import Review
 from django.contrib.auth import get_user_model
-from .forms import CompareForm, SortForm
+from .forms import CompareForm, SortForm, SearchForm
 
 
 # Create your views here.
@@ -36,6 +36,7 @@ class ProductList(ListView):
 
         context['categories'] = categories
         context['sort_by_form'] = SortForm()
+        context['search_form'] = SearchForm()
         if isinstance(self.request.user, AnonymousUser):
             return context 
         favorites = StarredProducts.objects.filter(
@@ -73,6 +74,10 @@ class ProductDetail(DetailView):
         context['compare_form'] = CompareForm(
             initial={
                 'product':other_product_key
+            },
+            view_context = {
+                'product_pk': self.kwargs['pk'],
+                'show_compare': False
             }
         )
         if isinstance(self.request.user, AnonymousUser):
@@ -140,12 +145,16 @@ class CompareView(ProductDetail):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['show_compare'] = True
-        context['first_item'] = Product.objects.get(
-            id=self.kwargs['pk']
-        )
-        context['second_item'] = Product.objects.get(
-            id=self.request.GET.get('product')
+        context['compare_form'].update_view_context(
+            {
+                'show_compare': True,
+                'first_item': Product.objects.get(
+                    id=self.kwargs['pk']
+                ),
+                'second_item': Product.objects.get(
+                    id=self.request.GET.get('product')
+                )
+            }
         )
         return context
 
