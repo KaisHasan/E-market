@@ -33,7 +33,17 @@
                         None.
                     {% endfor %}
                     
-                </span> 
+                </span>
+                <br />
+                <span>
+                    Rating:
+                    {% if product.get_rating %}
+                        {{product.get_rating }}
+                        <span> ({{product.get_num_reviews}} reviews)</span>
+                    {% else %}
+                        Not rated yet!
+                    {% endif %}
+                </span>
                 <br />
                 {% if user.is_authenticated %}
                     <span>

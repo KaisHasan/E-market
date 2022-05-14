@@ -1,3 +1,4 @@
+from email.policy import default
 from itertools import product
 from re import template
 from django.shortcuts import redirect, render
@@ -16,6 +17,7 @@ from django.contrib.auth.models import AnonymousUser
 from reviews.models import Review
 from django.contrib.auth import get_user_model
 from .forms import CompareForm, SortForm, SearchForm
+from django.db.models import Avg, Count
 
 
 # Create your views here.
@@ -27,6 +29,8 @@ class ProductList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # Categories
         categories_objects = Category.objects.all()
         categories = []
         for category in categories_objects:
@@ -35,8 +39,12 @@ class ProductList(ListView):
             categories.append((name, num))
 
         context['categories'] = categories
+
+        # Forms
         context['sort_by_form'] = SortForm()
         context['search_form'] = SearchForm()
+
+        # User specific
         if isinstance(self.request.user, AnonymousUser):
             return context 
         favorites = StarredProducts.objects.filter(
@@ -64,9 +72,18 @@ class ProductDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['reviews'] = Review.objects.filter(
+
+        # Reviews related
+        reviews = Review.objects.filter(
             product=self.kwargs['pk']
         )
+        context['reviews'] = reviews
+        context.update(
+            reviews.aggregate(
+                avg_stars=Avg('stars', default=0)
+            )
+        )
+        context['num_reviews'] = reviews.count()
 
         # CompareForm context
         if 'product' in self.request.GET:

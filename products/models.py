@@ -1,7 +1,9 @@
+from email.policy import default
 from django.urls import reverse
 from django.db import models
 import uuid
 from django.contrib.auth import get_user_model
+from django.db.models import Avg
 
 # Create your models here.
 class Category(models.Model):
@@ -25,6 +27,15 @@ class Product(models.Model):
         blank=True,
         null=True
     )
+
+    def get_rating(self):
+        avg_stars = self.reviews.aggregate(
+            avg_stars=Avg('stars', default=None)
+        )['avg_stars']
+        return avg_stars
+    
+    def get_num_reviews(self):
+        return self.reviews.count()
 
     def __str__(self):
         return self.name

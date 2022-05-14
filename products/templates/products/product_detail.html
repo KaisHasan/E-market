@@ -21,6 +21,13 @@
                 <img class='add-to-cart-button' src="{% static 'products/images/add_to_cart_button.png'%}" 
                     alt="Add to cart" />
             </a>
+            <p class='rating'> 
+                {% if product.get_rating %}
+                    {{product.get_rating}} stars ({{product.get_num_reviews}} reviews)
+                {% else %}
+                    Not rated yet!
+                {% endif %}
+            <p>
         </div>
         <ul class='product-detail-properties'>
             <li> Price: {{product.price}} </li>
