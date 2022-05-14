@@ -86,27 +86,11 @@
     </div>
 
     <aside class='search-bar'>
-        <form action="{% url 'search_results' %}" method='GET'>
-            <label for='search-products'> Search in products </label>
-            <input class="search-text form-control mr-sm-2" type='search' name='q' aria-label="Search through site products" 
-                placeholder='Search' />
-            <button class="btn btn-outline-success my-2 my-sm-0" type='submit'> Search </button>
-        </form>
+        {{search_form}}
     </aside>
     
     <aside class='sort-by'>
-        <form action="{% url 'product_list' %}" method='GET'>
-                <div class='sort-by-field'>
-                    <label class='form-check-label '> Sort by: </label>
-                    {{sort_by_form.sort_by}}
-                </div>
-                <br />
-                <div class='desc-asc-field'>
-                    {{sort_by_form.desc_asc}}
-                </div>
-                <br />
-            <button class='btn btn-outline-success my-2 my-sm-0'> Sort </button>
-        </form>
+        {{sort_by_form}}
     </aside>
     <aside class='category-catalog'>
         <h3> Categories </h3>
