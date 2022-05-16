@@ -32,7 +32,8 @@ class SortForm(Form):
     template_name = 'products/sort_by_form.html'
     CHOICES1 = [
         ('name', 'Name'),
-        ('price', 'Price')
+        ('price', 'Price'),
+        ('rating', 'Rating')
     ]
     sort_by = ChoiceField(choices=CHOICES1, label='', widget=forms.RadioSelect)
     CHOICES2 = [

@@ -58,11 +58,44 @@ class ProductList(ListView):
         try:
             ordering = self.request.GET.get('sort_by')
             desc_asc = self.request.GET.get('desc_asc')
+            if ordering not in ['name', 'price']:
+                raise KeyError
             if desc_asc == 'desc':
                 ordering = '-' + ordering
             return ordering
-        except:
+        except KeyError:
             return super().get_ordering()
+
+
+    def get_queryset(self):
+        query = super().get_queryset()
+        result, query = self.order_by_rating(query)
+        if not result:
+            query = super().get_queryset()
+        return query
+
+
+    def order_by_rating(self, cur_queryset):
+        """Return (result, query)
+        result is True when order applied,
+            and query will be the ordered queryset
+        resutl is False when order did not applied,
+            and query will be None
+        """
+        try:
+            ordering = self.request.GET.get('sort_by')
+            desc_asc = self.request.GET.get('desc_asc')
+            if ordering != 'rating':
+                raise KeyError
+            ordered_queryset = sorted(
+                cur_queryset,
+                key=lambda p: p.get_rating() if p.get_rating() is not None else 0,
+                reverse=(desc_asc=='desc')
+            )
+            return True, ordered_queryset
+        except KeyError:
+            return False, None
+        
 
 
 class ProductDetail(DetailView):
