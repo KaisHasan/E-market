@@ -1,4 +1,7 @@
 <form action="{% url 'product_list' %}" method='GET'>
+    {% for field in search_form %}
+        {{field.as_hidden}}
+    {% endfor %}
     <div class='sort-by-field'>
         <label class='form-check-label '> Sort by: </label>
         {{form.sort_by}}

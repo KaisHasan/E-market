@@ -1,3 +1,4 @@
+from urllib import request
 from django.forms import Form, RadioSelect
 from django.forms import ChoiceField
 from .models import Product
@@ -6,6 +7,24 @@ from django import forms
 
 class SearchForm(Form):
     template_name = 'products/search_form.html'
+
+    q = forms.CharField(max_length=20, label='Search in products')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.sort_form = None
+        self.fields['q'].widget.attrs['class'] = 'search-text form-control mr-sm-2'
+        self.fields['q'].widget.attrs['aria-label'] = 'Search through site products'
+
+
+    
+    def set_sort_form(self, sort_form):
+        self.sort_form = sort_form
+
+    def get_context(self, **kwargs):
+        context = super().get_context()
+        context['sort_form'] = self.sort_form
+        return context
 
 
 class CompareForm(Form):
@@ -43,5 +62,15 @@ class SortForm(Form):
 
     def __init__(self, *args, **kwargs):
         super(SortForm, self).__init__(*args, **kwargs)
+        self.search_form = None
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-inline'
+
+    def set_search_form(self, search_form):
+        self.search_form = search_form
+
+    def get_context(self, **kwargs):
+        context = super().get_context()
+        context['search_form'] = self.search_form
+        return context
+

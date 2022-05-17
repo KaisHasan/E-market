@@ -1,6 +1,7 @@
 from email.policy import default
 from itertools import product
 from re import template
+from urllib import request
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, TemplateView
@@ -41,8 +42,34 @@ class ProductList(ListView):
         context['categories'] = categories
 
         # Forms
-        context['sort_by_form'] = SortForm()
-        context['search_form'] = SearchForm()
+        desc_asc, sort_by, q = None, None, None
+        if 'desc_asc' in self.request.GET:
+            desc_asc = self.request.GET.get('desc_asc')
+        if 'sort_by' in self.request.GET:
+            sort_by = self.request.GET.get('sort_by')
+        if 'q' in self.request.GET:
+            q = self.request.GET.get('q')
+        # strs = ['desc_asc', 'sort_by', 'q']
+        # for v, n in zip([desc_asc, sort_by, q], strs):
+        #     if n in self.request.GET:
+        #         v= self.request.GET.get(n)
+
+        print(desc_asc)
+        sort_form = SortForm(
+            initial={
+                'sort_by':sort_by,
+                'desc_asc':desc_asc
+            }
+        )
+        search_form = SearchForm(
+            initial={
+                'q':q
+            }
+        )
+        sort_form.set_search_form(search_form)
+        search_form.set_sort_form(sort_form)
+        context['sort_by_form'] = sort_form
+        context['search_form'] = search_form
 
         # User specific
         if isinstance(self.request.user, AnonymousUser):
@@ -69,9 +96,17 @@ class ProductList(ListView):
 
     def get_queryset(self):
         query = super().get_queryset()
+
+        # Search filter
+        if 'q' in self.request.GET:
+            q = self.request.GET.get('q')
+            query = query.filter(
+                name__icontains=q
+            )
+
+        # Order filter
         result, query = self.order_by_rating(query)
-        if not result:
-            query = super().get_queryset()
+
         return query
 
 
@@ -80,7 +115,7 @@ class ProductList(ListView):
         result is True when order applied,
             and query will be the ordered queryset
         resutl is False when order did not applied,
-            and query will be None
+            and query will be the passed one
         """
         try:
             ordering = self.request.GET.get('sort_by')
@@ -94,7 +129,7 @@ class ProductList(ListView):
             )
             return True, ordered_queryset
         except KeyError:
-            return False, None
+            return False, cur_queryset
         
 
 
@@ -148,16 +183,6 @@ class ProductDetail(DetailView):
             context['user_not_posted_review'] = 1
         
         return context
-
-
-
-class SearchProducts(ProductList):
-
-    def get_queryset(self):
-        query = self.request.GET.get('q')
-        return Product.objects.filter(
-            name__icontains=query
-        )
 
 
 class CategoryProducts(ProductList):
