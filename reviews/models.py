@@ -34,6 +34,15 @@ class Review(models.Model):
         on_delete=models.CASCADE,
         related_name='reviews'
     )
+    date_created = models.DateTimeField(
+        auto_now_add=True,
+        null=True
+    )
+    last_modified = models.DateTimeField(
+        auto_now=True,
+        null=True
+    )
+
     
     def __str__(self):
         return f'user: {self.user} gives this product {self.stars} stars'

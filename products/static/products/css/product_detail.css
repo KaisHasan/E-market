@@ -61,7 +61,7 @@ a {
 }
 
 .review-item {
-    width: 400px;
+    width: 900px;
     height: fit-content;
     margin-top: 10px;
     margin-bottom: 20px;
@@ -72,5 +72,10 @@ a {
 
 .comment {
     margin: 10px;
+}
+
+.review-dates {
+    float: right;
+    font-size: smaller;
 }
 

@@ -72,6 +72,10 @@
             {% for review in reviews %}
                 <p id='{{ review.pk }}'  class='review-item'>
                     <b>User:</b> {{review.user}}
+                    <span class='review-dates'>
+                        Posted at: {{review.date_created}}|
+                        Last modified: {{review.last_modified}}
+                    </span>
                     <br />
                     <b>stars:</b> {{review.stars}}
                     <br />
