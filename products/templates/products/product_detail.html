@@ -13,9 +13,16 @@
 {% endblock head_block %}
 
 {% block content %}
-    <p>
-        <a href="{{request.META.HTTP_REFERER}}">&larr; Go back </a>
-    </p>
+    <nav class='navbar navbar-dark bg-dark thin' aria-label="breadcrumb product-nav">
+        <ol class="breadcrumb bg-dark thin">
+            <li class="breadcrumb-item thin">
+                <small> <a class='no-underline' href="{% url 'product_list' %}">Product List</a> </small>
+            </li>
+            <li class="breadcrumb-item active thin" aria-current="page">
+                <small>{{product.name}}</small>
+            </li>
+        </ol>
+    </nav>
     <main>
         <div class='product-title'>
             <h1 class='product-name'> {{product.name}} </h1>

@@ -9,9 +9,15 @@
     
 {% endblock head_block %}
 {% block content %}
-    <p>
-        <a href="{% url 'home' %}">&larr; Go back </a>
-    </p>
+
+    <nav class='navbar navbar-dark bg-dark thin' aria-label="breadcrumb">
+        <ol class="breadcrumb bg-dark thin">
+            <li class="breadcrumb-item active thin" aria-current="page">
+                <small>Product List </small>
+            </li>
+        </ol>
+    </nav>
+
     <h1 class='main-title'>Products</h1>
     <main>
         {% for product in page_obj %}

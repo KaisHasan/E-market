@@ -117,3 +117,9 @@ a {
     color: rgb(255, 227, 66);
     font-weight: 700;
 }
+
+.thin {
+    height: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
