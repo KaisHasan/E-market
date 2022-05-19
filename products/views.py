@@ -1,12 +1,5 @@
-from email.policy import default
-from itertools import product
-from re import template
-from urllib import request
-from django.shortcuts import redirect, render
-from django.urls import reverse
-from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic import DetailView, ListView
 from .models import Category, Product
-from django.db.models import F
 from django.views import View
 from django.shortcuts import get_object_or_404
 from .models import StarredProducts
@@ -16,9 +9,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import AnonymousUser
 from reviews.models import Review
-from django.contrib.auth import get_user_model
 from .forms import CompareForm, SortForm, SearchForm
-from django.db.models import Avg, Count
+from django.db.models import Avg
+from dal import autocomplete
 
 
 # Create your views here.
@@ -237,4 +230,13 @@ class CompareView(ProductDetail):
         )
         return context
 
+
+class ProductAutoComplete(autocomplete.Select2ListView):
+
+    def get_list(self):
+        products_names = list(
+            Product.objects.all().values_list('id', 'name')
+        )
+        print('hi')
+        return products_names
 

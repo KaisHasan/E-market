@@ -1,8 +1,12 @@
 {% load crispy_forms_tags %}
+{% load static %}
+
+
 
 <h2> Compare</h2>
 <form action="{% url 'compare' product_pk %}" method='GET'>
     {{form|crispy}}
+    {{form.media}}
     <button type='submit'>Compare</button>
 </form>
 {% if show_compare %}

@@ -1,8 +1,8 @@
-from urllib import request
 from django.forms import Form, RadioSelect
 from django.forms import ChoiceField
 from .models import Product
 from django import forms
+from dal import autocomplete
 
 
 class SearchForm(Form):
@@ -27,17 +27,25 @@ class SearchForm(Form):
         return context
 
 
+
+
 class CompareForm(Form):
+
     template_name = 'products/compare_form.html'
 
     CHOICES = list(('', ''))
-    product = ChoiceField(choices=CHOICES, label='Compare with:')
+    product = autocomplete.Select2ListChoiceField(
+        choice_list=CHOICES, label='Compare with:',
+        widget=autocomplete.ListSelect2(url='product-autocomplete')
+    )
 
     def __init__(self, view_context, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['product'].choices = list(Product.objects.all().values_list('id', 'name'))
+        self.fields['product'].choices = list(
+            Product.objects.all().values_list('id', 'name')
+        )
         self.view_context = view_context
-    
+
     def update_view_context(self, context):
         self.view_context.update(context)
 
