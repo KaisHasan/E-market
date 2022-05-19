@@ -42,6 +42,7 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     'dal',
     'dal_select2',
+     # 'sendemail.apps.SendemailConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -173,4 +174,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+DEFAULT_FROM_EMAIL = 'hederamar@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

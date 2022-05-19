@@ -6,5 +6,11 @@
     <h1 class='main-title'>E-market</h1>
     <h2><a class="no-underline block middle" href="{% url 'product_list' %}"> Products List </a></h2>
     <img class='shopping-cart-img' src="{% static 'pages/images/shopping_cart.jpg' %}" alt='Shopping cart' />
-    
+    <footer class="py-2 bg-dark text-white-50 footer">
+        <div class="container text-center">
+            <a href="{% url 'contact-us' %}">
+                Contact us
+            </a>
+        </div>
+    </footer>
 {% endblock content %}
