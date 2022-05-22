@@ -33,7 +33,14 @@
                     <a class='nav-link active btn btn-success' href="{% url 'account_login' %}">login</a>
                     <a class='nav-link active btn btn-success' href="{% url 'account_signup' %}">signup</a>
                 {% endif %}
-                <a class='nav-link active' href="{% url 'cart_items' %}"> Cart </a>
+                <a class='nav-link active' href="{% url 'cart_items' %}">
+                    Cart
+                    {% if user.is_authenticated %}
+                        <span class="badge badge-info">
+                            {{user.get_num_of_items_in_cart}}
+                        </span>
+                    {% endif %}
+                </a>
                 <a class='nav-link active' href="{% url 'favorites' %}"> Favorites </a>
             </div>
         </nav>
