@@ -28,7 +28,11 @@ class Cart(models.Model):
     def remove_from_cart(self, product_id):
         product = get_object_or_404(Product, pk=product_id)
         order = Order.objects.get(user=self.user, product=product, cart=self)
-        order.delete()
+        if order.num_items == 1:
+            order.delete()
+        else:
+            order.num_items = F('num_items') - 1
+            order.save()
 
     def __str__(self):
         return f'Cart for {self.user.username}'
