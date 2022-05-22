@@ -3,6 +3,9 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.db.models import F
 from products.models import Product
+from django.db.models import Sum
+from django.contrib import messages
+
 
 # Create your models here.
 class Cart(models.Model):
@@ -13,6 +16,15 @@ class Cart(models.Model):
     )
     def add_to_cart(self, product_id, num_of_items):
         product = get_object_or_404(Product, pk=product_id)
+        order_price = product.price * num_of_items
+        tot_price = order_price + self.orders.all().annotate(
+            sum_price=F('product__price')*F('num_items')
+        ).aggregate(
+            tot_price=Sum('sum_price')
+        )['tot_price']
+        if tot_price > self.user.money:
+            # TODO: Show an error or something
+            return False
         order, created = Order.objects.get_or_create(
             user=self.user,
             product=product,
@@ -23,6 +35,7 @@ class Cart(models.Model):
 
         order.num_items = F('num_items') + num_of_items
         order.save()
+        return True
 
 
     def remove_from_cart(self, product_id):

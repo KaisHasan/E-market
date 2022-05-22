@@ -38,6 +38,12 @@
             <form action="{% url 'add_item' product.pk %}" method='post'>
                 {% csrf_token %}
                 {{add_to_cart_form|crispy}}
+                {% for message in messages %}
+                    <div class="alert alert-danger">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+                        {{ message }}
+                    </div>
+                {% endfor %}
                 <button class='add-to-cart-button' type='submit'> 
                     <img class='add-to-cart-img'
                      src="{% static 'products/images/add_to_cart_button.png'%}" 

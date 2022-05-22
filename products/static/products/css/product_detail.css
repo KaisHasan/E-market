@@ -50,6 +50,7 @@ a, .no-underline {
 
 .add-to-cart {
     margin-left: 15px;
+    width: fit-content;
 }
 
 .add-to-cart-button {

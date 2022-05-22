@@ -8,6 +8,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.decorators import method_decorator
+from django.contrib import messages
 # Create your views here.
 
 class CartItemsList(TemplateView):
@@ -20,7 +21,9 @@ class AddItemView(View):
         cart, _ = Cart.objects.get_or_create(user=request.user)
         if request.method == 'POST':
             num_of_items = int(request.POST.get('num_of_items'))
-            cart.add_to_cart(kwargs['pk'], num_of_items)
+            success = cart.add_to_cart(kwargs['pk'], num_of_items)
+            if not success:
+                messages.error(request, r"You don't have enough money")
             return redirect(reverse('product_detail', kwargs={'pk':kwargs['pk']}))
 
 class RemoveItemView(View):
