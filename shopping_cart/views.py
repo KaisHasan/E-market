@@ -21,7 +21,7 @@ class AddItemView(View):
         if request.method == 'POST':
             num_of_items = int(request.POST.get('num_of_items'))
             cart.add_to_cart(kwargs['pk'], num_of_items)
-            return redirect(reverse('cart_items'))
+            return redirect(reverse('product_detail', kwargs={'pk':kwargs['pk']}))
 
 class RemoveItemView(View):
     @method_decorator(login_required)
