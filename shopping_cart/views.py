@@ -18,8 +18,10 @@ class AddItemView(View):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         cart, _ = Cart.objects.get_or_create(user=request.user)
-        cart.add_to_cart(kwargs['pk'])
-        return redirect(reverse('cart_items'))
+        if request.method == 'POST':
+            num_of_items = int(request.POST.get('num_of_items'))
+            cart.add_to_cart(kwargs['pk'], num_of_items)
+            return redirect(reverse('cart_items'))
 
 class RemoveItemView(View):
     @method_decorator(login_required)

@@ -1,3 +1,5 @@
+from ast import Add
+from mimetypes import init
 from django.views.generic import DetailView, ListView
 from .models import Category, Product
 from django.views import View
@@ -10,6 +12,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import AnonymousUser
 from reviews.models import Review
 from .forms import CompareForm, SortForm, SearchForm
+from .forms import AddToCartForm
 from django.db.models import Avg
 from dal import autocomplete
 
@@ -133,6 +136,13 @@ class ProductDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # Add to cart
+        context['add_to_cart_form'] = AddToCartForm(
+            initial={
+                'num_of_items': 1
+            }
+        )
 
         # Reviews related
         reviews = Review.objects.filter(

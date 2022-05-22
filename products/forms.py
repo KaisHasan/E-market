@@ -3,6 +3,7 @@ from django.forms import ChoiceField
 from .models import Product
 from django import forms
 from dal import autocomplete
+from django.urls import reverse
 
 
 class SearchForm(Form):
@@ -81,4 +82,9 @@ class SortForm(Form):
         context = super().get_context()
         context['search_form'] = self.search_form
         return context
+
+
+class AddToCartForm(forms.Form):
+    num_of_items = forms.IntegerField(min_value=1, label='Number of items')
+
 

@@ -11,16 +11,18 @@ class Cart(models.Model):
         related_name='cart',
         on_delete=models.CASCADE
     )
-    def add_to_cart(self, product_id):
+    def add_to_cart(self, product_id, num_of_items):
         product = get_object_or_404(Product, pk=product_id)
         order, created = Order.objects.get_or_create(
             user=self.user,
             product=product,
             cart=self
         )
-        if not created:
-            order.num_items = F('num_items') + 1
-            order.save()
+        if created:
+            num_of_items -= 1
+
+        order.num_items = F('num_items') + num_of_items
+        order.save()
 
 
     def remove_from_cart(self, product_id):
