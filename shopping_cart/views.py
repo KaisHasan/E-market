@@ -10,9 +10,10 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 from .models import Order
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
-class CartItemsList(TemplateView):
+class CartItemsList(LoginRequiredMixin, TemplateView):
     template_name = "shopping_cart/cart_items.html"
 
     def get_context_data(self, **kwargs):
