@@ -1,3 +1,8 @@
+a, .no-underline {
+    text-decoration: none;
+}
+
+
 .product-detail-properties {
     width: fit-content;
     font-size: large;
@@ -5,6 +10,14 @@
     margin-top: 100px;
     font-weight: 600;
 
+}
+
+.rating {
+    font-weight: 100;
+    font-size: large;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 5px;
+    margin-left: 15px;
 }
 
 .product-category {
@@ -24,36 +37,37 @@
     font-weight: 700;
 }
 
-a {
-    text-decoration: none;
-}
+
 
 .product-title {
-    float: inline-start;
     width: 100%;
     height: 100px;
 }
 
 .product-name {
-    float: left;
-    width: 200px;
-
+    
 }
 
 .add-to-cart {
-    display: contents;
-
+    margin-left: 15px;
+    width: fit-content;
 }
 
 .add-to-cart-button {
     width: 200px;
     height: 50px;
     margin-top: 8px;
-    margin-left: 100px;
+    border: 0;
+    background-color: inherit;
+}
+
+.add-to-cart-img {
+    width: inherit;
+    height: inherit;
 }
 
 .review-item {
-    width: 400px;
+    width: 900px;
     height: fit-content;
     margin-top: 10px;
     margin-bottom: 20px;
@@ -64,4 +78,15 @@ a {
 
 .comment {
     margin: 10px;
+}
+
+.review-dates {
+    float: right;
+    font-size: smaller;
+}
+
+.thin {
+    height: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
 }

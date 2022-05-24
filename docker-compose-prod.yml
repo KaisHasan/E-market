@@ -1,0 +1,17 @@
+version: '3.10'
+
+services:
+  web:
+    build: .
+    command: gunicorn e_market.wsgi -b 0.0.0.0:8000
+    environment:
+      - ENVIRONMENT=production
+      - SECRET_KEY=django-insecure-rw=8!%#o-$mo-!#lcts38_ga%p39^-$#+qdw3yseh@z@6&a2ax
+      - DEBUG=0
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+  
+  db:
+    image: postgres:14

@@ -2,7 +2,7 @@
     border: 5px dotted black;
     box-sizing: border-box;
     width: 300px;
-    height: 330px;
+    height: 350px;
     margin: 10px 10px;
     padding: 5px;
     text-align: center;
@@ -25,6 +25,7 @@ main {
 
 .search-text {
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .empty_list {
@@ -115,4 +116,10 @@ a {
 .starred {
     color: rgb(255, 227, 66);
     font-weight: 700;
+}
+
+.thin {
+    height: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
 }
