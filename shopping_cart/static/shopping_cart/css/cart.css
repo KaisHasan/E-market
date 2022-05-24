@@ -43,9 +43,8 @@ a {
 
 .buy-button {
     display: block;
-    border: 2px solid black;
-    width: fit-content;
+    width: 20%;
     height: fit-content;
-    margin-left: 10px;
+    margin: auto;
 }
 
