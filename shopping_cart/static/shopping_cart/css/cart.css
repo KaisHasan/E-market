@@ -31,7 +31,7 @@ a {
     box-shadow: 0px 0px 2px 0px;
 }
 
-main {
+.cart-items {
     display: flex;
     justify-content: flex-start;
     max-width: 100%;
@@ -39,5 +39,13 @@ main {
     height: max-content;
     padding: 10px 0;
     line-height: 1.3em;
+}
+
+.buy-button {
+    display: block;
+    border: 2px solid black;
+    width: fit-content;
+    height: fit-content;
+    margin-left: 10px;
 }
 

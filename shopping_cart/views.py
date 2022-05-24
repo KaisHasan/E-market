@@ -9,10 +9,19 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.contrib import messages
+from .models import Order
 # Create your views here.
 
 class CartItemsList(TemplateView):
     template_name = "shopping_cart/cart_items.html"
+
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context['orders'] = self.request.user.orders.filter(
+            archived=False
+        )
+        return context
+    
 
 
 class AddItemView(View):
@@ -31,4 +40,11 @@ class RemoveItemView(View):
     def dispatch(self, request, *args, **kwargs):
         cart, _ = Cart.objects.get_or_create(user=request.user)
         cart.remove_from_cart(kwargs['pk'])
+        return redirect(reverse('cart_items'))
+
+
+class BuyView(View):
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        request.user.cart.buy()
         return redirect(reverse('cart_items'))

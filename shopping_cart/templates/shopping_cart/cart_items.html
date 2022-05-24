@@ -13,18 +13,28 @@
         <a href="{{request.META.HTTP_REFERER}}">&larr; Go back </a>
     </p>
     <h1 class='main-title'>Cart</h1>
+    <div class='buy-button'>
+        <p>
+            <a href="{% url 'buy' %}">
+                Buy
+            </a>
+        </p>
+    </div>
     <main>
-        {% for order in user.orders.all %}
-            <div class='order-item'>
-                <p class='product-name'>
-                    <a href="{% url 'product_detail' order.product.id %}">{{order.product.name}}</a>
-                </p>
-                <p class='number-of-items'> {{order.num_items}} </p>
-                <p><b>Price: </b>{{order.product.price}}</p>
-                <p><a href="{% url 'remove_item' order.product.id %}">Delete</a></p>
-            </div>
-        {% empty %}
-            <li class='empty-list'>No orders yet.</li>
-        {% endfor %}
+        <div class='cart-items'>
+            {% for order in orders %}
+                <div class='order-item'>
+                    <p class='product-name'>
+                        <a href="{% url 'product_detail' order.product.id %}">{{order.product.name}}</a>
+                    </p>
+                    <p class='number-of-items'> {{order.num_items}} </p>
+                    <p><b>Price: </b>{{order.product.price}}</p>
+                    <p><a href="{% url 'remove_item' order.product.id %}">Delete</a></p>
+                </div>
+            {% empty %}
+                <li class='empty-list'>No orders yet.</li>
+            {% endfor %}
+        <div>
+        
     </main>
 {% endblock content %}

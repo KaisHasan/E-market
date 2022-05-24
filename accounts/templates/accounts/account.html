@@ -1,0 +1,25 @@
+{% extends 'pages/_base.html' %}
+{% load static %}
+
+{% block title %}Account{% endblock title %}
+{% block content %}
+    <h1 class='main-title'>Account</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <td>{{user.username}}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{user.email}}</td>
+        </tr>
+        <tr>
+            <th>Money</th>
+            <td>{{user.money}}</td>
+        </tr>
+    </table>
+
+    <p>
+        <a href="{% url 'reset' %}">Reset</a>
+    </p>
+{% endblock content %}
