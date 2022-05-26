@@ -20,7 +20,6 @@ services:
       - POSTGRES_USER=kais_hasan
       - POSTGRES_DB=e_market_postgres_db
       - POSTGRES_PASSWORD=12345678ABC
-      - SECRET_KEY=django-insecure-rw=8!%#o-$mo-!#lcts38_ga%p39^-$#+qdw3yseh@z@6&a2ax
       - DEBUG=1
     
     volumes:
